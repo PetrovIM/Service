@@ -1,9 +1,25 @@
+package service;
+
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Arrays;
 
 public class Server {
+    private int port;
+    private ServerSocket serverSocket;
+    private Socket clientSocket;
+
+    public void start(int port){
+        try {
+            serverSocket = new ServerSocket(port);
+            System.out.println("service1.Server started..");
+            clientSocket = serverSocket.accept();
+
+        }catch (IOException ex){
+            System.out.println(ex.getMessage());
+        }
+    }
+
     public static void main(String[] args) {
         try (ServerSocket serverSocket = new ServerSocket(8080)) {
             System.out.println("Сервер запущен");
