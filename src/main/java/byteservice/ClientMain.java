@@ -7,12 +7,13 @@ import java.net.Socket;
 
 public class ClientMain {
     public static void main(String[] args) throws IOException {
-    Client client = new Client("localhost",80);
-    client.writeRequest("111+22 ");
-    client.readResponse();
+        try (Client client = new Client("localhost",80)) {
+            client.writeRequest("111+22 ");
+            client.readResponse();
+        }
 }
 
-    static class Client{
+    static class Client implements AutoCloseable{
         private Socket clientSocket;
 
         public Client(String ip, int port) throws IOException {
@@ -28,7 +29,7 @@ public class ClientMain {
             System.out.println("Отправил запрос: " + request);
             System.out.println("Жду результат");
 
-        };
+        }
         public void readResponse() throws IOException {
             InputStream in = clientSocket.getInputStream();
             int z;
@@ -42,7 +43,10 @@ public class ClientMain {
             System.out.println("Получен ответ: " + str);
             System.out.println("Клиент закрылся");
             clientSocket.close();
-        };
+        }
+
+        @Override
+        public void close(){}
 
 
     }
