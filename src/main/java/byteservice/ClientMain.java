@@ -42,7 +42,6 @@ public class ClientMain {
             }
             System.out.println("Получен ответ: " + str);
             System.out.println("Клиент закрылся");
-            clientSocket.close();
         }
 
         @Override
