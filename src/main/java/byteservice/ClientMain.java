@@ -45,7 +45,6 @@ public class ClientMain {
                 } else break;
             }
             System.out.println("Получен ответ: " + str);
-            System.out.println("Клиент закрылся");
         }
 
 
@@ -54,6 +53,7 @@ public class ClientMain {
             out.close();
             in.close();
             clientSocket.close();
+            System.out.println("Клиент закрылся");
         }
     }
 }
