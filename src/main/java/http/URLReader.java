@@ -9,7 +9,7 @@ public class URLReader {
 
     public String get(String url){
         byte[] content = new byte[0];
-        try (Client client = new Client("help.websiteos.com", 80)) {
+        try (Client client = new Client(getHost(url), 80)) {
             client.writeLine("GET " + getPath(url) + " HTTP/1.1");
             client.writeLine("Host: " + getHost(url));
             client.writeLine("");
