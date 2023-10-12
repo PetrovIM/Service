@@ -1,9 +1,9 @@
 package http;
 
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class URLReader {
 
@@ -24,26 +24,28 @@ public class URLReader {
         return new String(content, StandardCharsets.UTF_8);
     }
 
-    public String getHost(String url) throws URISyntaxException {
+    public String getHost(String url){
         String [] x;
-        x = parsingUrl(url);
+        x = regexUrl(url);
         return x[0];
     }
 
-    public String getPath(String url) throws URISyntaxException {
+    public String getPath(String url){
         String [] x;
-        x = parsingUrl(url);
+        x = regexUrl(url);
         return x[1];
     }
 
-    public String[] parsingUrl(String url) throws URISyntaxException {
-        URI uri = new URI(url);
-        String host = uri.getHost();
-        String path = uri.getPath();
-        String [] splitUrl = new String[2];
-        splitUrl[0] = host;
-        splitUrl[1] = path;
-        return splitUrl;
+    public String [] regexUrl(String url){
+        String [] x = new String[2];
+        String pattern = "^(https?:\\/\\/)([a-z,.]*)(.*)$";
+        Pattern p = Pattern.compile(pattern);
+        Matcher m = p.matcher(url);
+        if (m.find()){
+            x[0] = m.group(2);
+            x[1] = m.group(3);
+        }
+        return x;
     }
 
 
