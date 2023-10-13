@@ -25,14 +25,13 @@ public class URLReader {
     }
 
     public String getHost(String url){
-        String [] x;
-        x = regexUrl(url);
+        String [] x = regexUrl(url);
         return x[0];
     }
 
     public String getPath(String url){
-        String [] x;
-        x = regexUrl(url);
+        String [] x = regexUrl(url);
+        if (x[1].equals("")) return x[1] = "/";
         return x[1];
     }
 
