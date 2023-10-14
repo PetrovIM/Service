@@ -25,17 +25,20 @@ public class URLReader {
     }
 
     public String getHost(String url){
-        String [] x = regexUrl(url);
-        return x[0];
+        String [] host = extractDomainAndPath(url);
+        return host[0];
     }
 
     public String getPath(String url){
-        String [] x = regexUrl(url);
-        if (x[1].equals("")) return x[1] = "/";
-        return x[1];
+        String [] domainAndPathpath = extractDomainAndPath(url);
+        String path = domainAndPathpath[1];
+        if (path.isEmpty()) {
+            path = "/";
+        }
+        return path;
     }
 
-    public String [] regexUrl(String url){
+    public String [] extractDomainAndPath(String url){
         String [] x = new String[2];
         String pattern = "^(https?:\\/\\/)([a-z,.]*)(.*)$";
         Pattern p = Pattern.compile(pattern);
